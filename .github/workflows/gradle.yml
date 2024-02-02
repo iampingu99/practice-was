@@ -22,25 +22,18 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      # 3. properties 설정
+      - name: Set up application.properties
+        run: |
+          cd src/main/resources
+          touch ./application.properties
+          ls
+          echo "${{ secrets.APPLICATION }}" > ./application.properties
+          cat ./application.properties
           
-      # 3. gradlew build
+      # 4. gradlew build
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           arguments: build
-
-      # Spring Boot 애플리케이션을 빌드하여 도커허브에 push
-      # 4. docker build
-      - name: docker image build
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/midas .
-        
-      # 5. dockerhub login
-      - name: docker login
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          
-      # 6. docker push
-      - name: docker Hub push
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/midas
