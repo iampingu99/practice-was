@@ -7,5 +7,5 @@ WORKDIR /usr/src/app
 COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar ./build/libs/demo-0.0.1-SNAPSHOT.jar
 # WORKDIR 위치(상대경로)의 build/libs 폴더에 demo-0.0.1-SNAPSHOT.jar 저장
 
-CMD ["java", "jar", "./build/libs/demo-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "./build/libs/demo-0.0.1-SNAPSHOT.jar"]
 # WORKDIR 위치(상대경로)의 build/libs 폴더에 demo-0.0.1-SNAPSHOT.jar 실행
